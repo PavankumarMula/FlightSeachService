@@ -2,7 +2,7 @@ const { city } = require("../models/index");
 
 class cityRepo {
     // create a new city
-    async create({ name }) {
+    async createCity({ name }) {
         try {
             const result = await city.create({ name });
             return result
@@ -13,9 +13,10 @@ class cityRepo {
     }
 
     // get the city
-    async getCity({ cityId }) {
+    async getCity(cityId) {
+        console.log("city id",cityId)
         try {
-            const result = await city.findByPk({ cityId });
+            const result = await city.findByPk(cityId);
             if (!result) {
                 console.log("city is not found")
                 return null

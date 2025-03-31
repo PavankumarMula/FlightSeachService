@@ -1,9 +1,12 @@
 const {cityRepository} = require("../repository/index");
 
+
+const cityRepoInstance = new cityRepository();
+
 class CityService {
 
     constructor(){
-        this.cityRepo = new cityRepository();
+        this.cityRepo = cityRepoInstance;
     }
 
     async createCity(data){
@@ -28,7 +31,7 @@ class CityService {
 
     async updateCity(cityId,data){
         try {
-            const res = await this.cityRepo.updateCity({cityId,data});
+            const res = await this.cityRepo.updateCity(cityId,data);
             return res;
         } catch (error) {
             console.log("error in the service layer",error)
@@ -47,3 +50,5 @@ class CityService {
     }
 
 }
+
+module.exports = CityService
