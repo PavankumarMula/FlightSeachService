@@ -86,10 +86,32 @@ const removeCity = async (req,res) => {
     }
 }
 
+const getAllCities = async (req,res) => {
+    console.log("reached here",req.query);
+    try {
+        const resultedCities = await cityServiceInstance.getAllCities(req.query)
+        return res.status(200).json({
+            success:true,
+            data:resultedCities,
+            err:{},
+            message:"cities fetched successfully"
+        })
+    } catch (error) {
+        console.log("error in controller",error);
+        return res.status(500).json({
+            success:false,
+            data:{},
+            err:error,
+            message:"failed to get all cities"
+        })
+    }
+}
+
 module.exports = {
     createCity,
     updateCity,
     getCity,
-    removeCity
+    removeCity,
+    getAllCities
 }
 

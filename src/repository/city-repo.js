@@ -1,4 +1,5 @@
 const { city } = require("../models/index");
+const {Op} = require('sequelize')
 
 class cityRepo {
     // create a new city
@@ -58,6 +59,16 @@ class cityRepo {
         }
     }
 
+    async getAllCities(query){
+        console.log("inside repo",query);
+        try {
+            const cities = await city.findAll({where:query})
+            return cities
+        } catch (error) {
+            console.log("error in repo level", error);
+            return error;
+        }
+    }
 
 }
 module.exports = cityRepo

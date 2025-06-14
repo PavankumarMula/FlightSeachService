@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const {cityRepository} = require("../repository/index");
 
 
@@ -45,6 +46,23 @@ class CityService {
             return true
         } catch (error) {
             console.log("error in the service layer",error)
+            return error
+        }
+    }
+
+    async getAllCities(query){
+        const {name} = query
+        const whereClause = {};
+        if(name){
+            whereClause.name={
+                [Op.startsWith]:name
+            }
+        }
+        try {
+            const cities = await this.cityRepo.getAllCities(whereClause);
+            return cities
+        } catch (error) {
+            console.log("error in the service layer",error);
             return error
         }
     }
